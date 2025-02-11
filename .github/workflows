@@ -1,0 +1,37 @@
+# name: Deploy Cloud Function
+
+# on:
+#   push:
+#     branches:
+#       - main  # or your default branch name
+
+# env:
+#   FUNCTION_NAME: function_1   # Replace with your function name
+#   REGION: us-central1                  # Replace with your desired region
+#   PROJECT_ID: solid-future-422303-e8      # Replace with your GCP project ID
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     permissions:
+#       contents: 'read'
+#       id-token: 'write'
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - id: auth
+#         uses: google-github-actions/auth@v2
+#         with:
+#           workload_identity_provider: projects/${{ env.PROJECT_ID }}/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider
+#           service_account: github-actions@${{ env.PROJECT_ID }}.iam.gserviceaccount.com
+
+#       - id: deploy
+#         uses: google-github-actions/deploy-cloud-functions@v1
+#         with:
+#           name: ${{ env.FUNCTION_NAME }}
+#           runtime: python39  # or your preferred runtime
+#           region: ${{ env.REGION }}
+#           source_dir: .     # Directory containing function code
+#           entry_point: hello_gcs  # Replace with your function's entry point
