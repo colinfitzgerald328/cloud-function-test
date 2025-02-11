@@ -17,11 +17,11 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ env.SERVICE_ACCOUNT }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT }}
       
       - id: 'deploy'
         uses: 'google-github-actions/deploy-cloud-functions@v3'
         timeout-minutes: 10
         with:
-          name: ${{ env.FUNCTION_NAME }}
+          name: ${{ secrets.FUNCTION_NAME }}
           runtime: 'python39'
