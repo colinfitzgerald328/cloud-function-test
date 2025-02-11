@@ -4,11 +4,6 @@ on:
     branches:
       - main
 
-env:
-  FUNCTION_NAME: function-1
-  REGION: us-central1
-  PROJECT_ID: '360954874762'
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -21,12 +16,12 @@ jobs:
       - id: auth
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: 'projects/360954874762/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider'
-          service_account: github-actions@solid-future-422303-e8.iam.gserviceaccount.com
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ env.SERVICE_ACCOUNT }}
       
       - id: 'deploy'
         uses: 'google-github-actions/deploy-cloud-functions@v3'
         timeout-minutes: 10
         with:
-          name: 'function-1'
+          name: ${{ env.FUNCTION_NAME }}
           runtime: 'python39'
