@@ -39,7 +39,9 @@ def hello_gcs(cloud_event):
         return
 
     # Create a temporary file with the original extension
-    with tempfile.NamedTemporaryFile(suffix=file_extension, delete=False) as temp_audio:
+    with tempfile.NamedTemporaryFile(
+        suffix=file_extension, delete=False
+    ) as temp_audio:
         try:
             # Download the blob to the temporary file
             blob.download_to_filename(temp_audio.name)
@@ -50,7 +52,9 @@ def hello_gcs(cloud_event):
             # Open and transcribe the audio file
             with open(temp_audio.name, "rb") as audio_file:
                 transcript = client.audio.transcriptions.create(
-                    model="whisper-1", file=audio_file, response_format="verbose_json"
+                    model="whisper-1",
+                    file=audio_file,
+                    response_format="verbose_json"
                 )
             print(f"Transcription: {transcript}")
 
