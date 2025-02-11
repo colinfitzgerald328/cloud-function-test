@@ -24,15 +24,9 @@ jobs:
           workload_identity_provider: 'projects/360954874762/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider'
           service_account: github-actions@solid-future-422303-e8.iam.gserviceaccount.com
       
-      - id: deploy
-        uses: google-github-actions/deploy-cloud-functions@v1
+      - id: 'deploy'
+        uses: 'google-github-actions/deploy-cloud-functions@v3'
+        timeout-minutes: 10
         with:
-          name: ${{ env.FUNCTION_NAME }}
-          runtime: python39
-          region: ${{ env.REGION }}
-          source_dir: .
-          entry_point: hello_gcs
-          gen2: true  # Specify that this is a 2nd gen function
-          env_vars: '' # If you have any environment variables, add them here
-          memory_mb: 256 # Optional: specify memory allocation
-          trigger_http: false # Set based on your trigger type
+          name: 'function-1'
+          runtime: 'python39'
